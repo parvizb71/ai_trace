@@ -1,6 +1,6 @@
 import { simpleGit, SimpleGit } from 'simple-git';
-import { analyzeDiff } from './llmExtractor';
-import { GraphRepository } from './graphRepository';
+import { analyzeDiff } from './llmExtractor.js';
+import { GraphRepository } from './graphRepository.js';
 
 export async function watchRepo(repoPath: string, repository: GraphRepository) {
   const git: SimpleGit = simpleGit(repoPath);
