@@ -1,6 +1,6 @@
 import OpenAI from 'openai';
 import { z } from 'zod';
-import { GitCommitAnalysis, ArtifactType, EdgeType } from '../types';
+import { GitCommitAnalysis, ArtifactType, EdgeType } from '../types.js';
 
 // Runtime validation schema matching the interfaces in src/types.ts
 const ArtifactSchema = z.object({

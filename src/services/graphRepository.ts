@@ -1,7 +1,11 @@
 import Database from 'better-sqlite3';
 import { readFileSync } from 'fs';
-import { join } from 'path';
-import { GraphArtifact, GraphEdge } from '../types';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
+import { GraphArtifact, GraphEdge } from '../types.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 export class GraphRepository {
   private db: Database.Database;
@@ -57,20 +61,38 @@ export class GraphRepository {
   }
 
   /**
+   * Resets the database by dropping and recreating tables.
+   */
+  resetDatabase() {
+    this.db.exec(`
+      DROP TABLE IF EXISTS edges;
+      DROP TABLE IF EXISTS artifacts;
+    `);
+    this.init();
+  }
+
+  /**
    * Fetches the entire graph for visualization.
    */
   getGraph() {
     const artifacts = this.db.prepare('SELECT * FROM artifacts').all() as any[];
-    const edges = this.db.prepare('SELECT * FROM edges').all() as GraphEdge[];
+    const edges = this.db.prepare('SELECT * FROM edges').all() as any[];
 
     return {
       artifacts: artifacts.map(a => ({
-        ...a,
+        id: a.id,
+        type: a.type,
+        title: a.title,
+        description: a.description,
         filePaths: JSON.parse(a.file_paths || '[]'),
         createdAt: a.created_at,
         updatedAt: a.updated_at
       })),
-      edges
+      edges: edges.map(e => ({
+        fromId: e.from_id,
+        toId: e.to_id,
+        type: e.type
+      }))
     };
   }
 }
