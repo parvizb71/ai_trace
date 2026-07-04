@@ -2,17 +2,17 @@
   "name": "1st_version_draw_graph",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "start": "ts-node src/index.ts",
+    "start": "tsx src/index.ts",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "dependencies": {
-    "better-sqlite3": "^11.8.1",
+    "better-sqlite3": "^11.10.0",
     "express": "^4.21.2",
     "openai": "^4.86.1",
     "simple-git": "^3.27.0",
@@ -23,6 +23,7 @@
     "@types/express": "^5.0.0",
     "@types/node": "^22.13.10",
     "ts-node": "^10.9.2",
+    "tsx": "^4.23.0",
     "typescript": "^5.8.2"
   }
 }
