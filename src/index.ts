@@ -1,6 +1,6 @@
-import { GraphRepository } from './services/graphRepository';
-import { watchRepo } from './services/gitWatcher';
-import { startServer } from './server';
+import { GraphRepository } from './services/graphRepository.js';
+import { watchRepo } from './services/gitWatcher.js';
+import { startServer } from './server.js';
 import * as path from 'path';
 
 async function main() {
@@ -9,18 +9,26 @@ async function main() {
   const repoPath = process.cwd();
   const repository = new GraphRepository();
 
+  // Handle command-line arguments
+  const args = process.argv.slice(2);
+  if (args.includes('--reset')) {
+    console.log('Database reset requested. Starting fresh...');
+    repository.resetDatabase();
+    console.log('Database reset successful.');
+  }
+
   try {
     // 1. Initialize Database
     console.log('Initializing database...');
     repository.init();
 
-    // 2. Run initial scan
+    // 2. Start Visualization Server IMMEDIATELY
+    console.log('Starting visualization server on port 3000...');
+    const server = startServer(repository, 3000);
+    
+    // 3. Run initial scan (this can take time, but server is now up)
     console.log('Running initial git scan...');
     await watchRepo(repoPath, repository);
-
-    // 3. Start Visualization Server
-    console.log('Starting visualization server...');
-    startServer(repository);
 
     // 4. Log current state
     const graph = repository.getGraph();
