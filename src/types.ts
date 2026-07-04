@@ -20,7 +20,7 @@ export interface GraphArtifact {
 /**
  * Represents a directed connection between two artifacts.
  */
-export type EdgeType = 'IMPLEMENTS' | 'DEPENDS_ON' | 'FIXES' | 'MODIFIES';
+export type EdgeType = 'IMPLEMENTS' | 'DEPENDS_ON' | 'FIXES' | 'MODIFIES' | 'EVOLVED_INTO';
 
 export interface GraphEdge {
   fromId: string;

@@ -2,6 +2,7 @@
   "name": "1st_version_draw_graph",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "tsx src/index.ts",
     "build": "tsc",
@@ -10,9 +11,8 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
   "dependencies": {
-    "better-sqlite3": "^11.8.1",
+    "better-sqlite3": "^11.10.0",
     "express": "^4.21.2",
     "openai": "^4.86.1",
     "simple-git": "^3.27.0",
